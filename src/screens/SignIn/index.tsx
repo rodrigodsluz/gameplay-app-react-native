@@ -1,11 +1,12 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { styles } from './styles'
+import React from "react";
+import { Text, View, Image } from "react-native";
+import IllustrationImg from "../../assets/illustration.png";
+import { styles } from "./styles";
 
 export function SignIn() {
   return (
     <View style={styles.container}>
-      <Text>SignIn</Text>
+      <Image source={IllustrationImg} />
     </View>
   );
 }
