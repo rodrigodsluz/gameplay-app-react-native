@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     height: 360
   },
   content: {
-    marginTop: -70,
+    marginTop: -50,
     paddingHorizontal: 50,
   },
   title: {
@@ -26,6 +26,6 @@ export const styles = StyleSheet.create({
     color: theme.colors.heading,
     fontSize: 15,
     textAlign: 'center',
-    marginBottom: 4
+    marginBottom: 25
   }
 });

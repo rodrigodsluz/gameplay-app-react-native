@@ -20,7 +20,7 @@ export function SignIn() {
 
       <View style={styles.content}>
         <Text style={styles.title}>
-          Organize {"\n"} easily {"\n"} your gambling
+          Connect{"\n"} and organize {"\n"} your games
         </Text>
 
         <Text style={styles.subtitle}>
