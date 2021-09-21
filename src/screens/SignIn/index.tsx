@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, Image, StatusBar } from "react-native";
-import { ButtonIcon } from '../../components/ButtonIcon';
+import { ButtonIcon } from "../../components/ButtonIcon";
 import IllustrationImg from "../../assets/illustration.png";
 import { styles } from "./styles";
 
@@ -28,7 +28,7 @@ export function SignIn() {
           favorite games with your friends
         </Text>
 
-        <ButtonIcon/>
+        <ButtonIcon title="Sign in with Discord" activeOpacity={0.7} />
       </View>
     </View>
   );
