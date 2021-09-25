@@ -39,7 +39,6 @@ export function SignIn() {
 
         <ButtonIcon
           title="Sign in with Discord"
-          activeOpacity={0.7}
           onPress={handleSignIn}
         />
       </View>
