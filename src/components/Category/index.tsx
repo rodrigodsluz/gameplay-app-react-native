@@ -27,12 +27,12 @@ export function Category({
         style={styles.container}
         colors={[secondary50, secondary70]}
       >
-        <View style={(styles.content, { opacity: checked ? 1 : 0.4 })}>
-          <View style={checked ? styles.checked : styles.check}>
-            <Icon width={48} height={48}/>
-          </View>
+        <View style={[styles.content, { opacity: checked ? 1 : 0.4 }]}>
+          <View style={checked ? styles.checked : styles.check} />
 
-          <Text style={styles.title}></Text>
+          <Icon width={48} height={48} />
+
+          <Text style={styles.title}>{title}</Text>
         </View>
       </LinearGradient>
     </RectButton>
