@@ -7,12 +7,22 @@ import { ListHeader } from "../../components/ListHeader";
 import { Profile } from "../../components/Profile";
 import { Appointment } from "../../components/Appointment";
 import { ListDivider } from "../../components/ListDivider";
+import { useNavigation } from "@react-navigation/core";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { styles } from "./styles";
 import { Background } from "../../components/Background";
 
+export type RootStackParamList = {
+  AppointmentDetails: undefined;
+};
+
+type homeScreenProp = StackNavigationProp<RootStackParamList, "AppointmentDetails">;
+
 export function Home() {
   const [category, setCategory] = useState<string>("");
+
+  const navigation = useNavigation<homeScreenProp>();
 
   const appointments = [
     {
@@ -47,6 +57,10 @@ export function Home() {
     categoryId === category ? setCategory("") : setCategory(categoryId);
   };
 
+  const handleAppointmentsDetails = ( ) => {
+    navigation.navigate('AppointmentDetails');
+  }
+
   return (
     <Background>
       <View style={styles.header}>
@@ -65,7 +79,9 @@ export function Home() {
         <FlatList
           data={appointments}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <Appointment data={item} />}
+          renderItem={({ item }) => (
+            <Appointment data={item} onPress={handleAppointmentsDetails} />
+          )}
           ItemSeparatorComponent={() => <ListDivider />}
           showsVerticalScrollIndicator={false}
           style={styles.matches}
