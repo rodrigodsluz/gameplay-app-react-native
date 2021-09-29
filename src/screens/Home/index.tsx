@@ -9,6 +9,7 @@ import { Appointment } from "../../components/Appointment";
 import { ListDivider } from "../../components/ListDivider";
 
 import { styles } from "./styles";
+import { Background } from "../../components/Background";
 
 export function Home() {
   const [category, setCategory] = useState<string>("");
@@ -47,7 +48,7 @@ export function Home() {
   };
 
   return (
-    <View style={styles.container}>
+    <Background>
       <View style={styles.header}>
         <Profile />
         <ButtonAdd />
@@ -70,6 +71,6 @@ export function Home() {
           style={styles.matches}
         />
       </View>
-    </View>
+    </Background>
   );
 }
