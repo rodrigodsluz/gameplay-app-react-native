@@ -15,9 +15,10 @@ import { Background } from "../../components/Background";
 
 export type RootStackParamList = {
   AppointmentDetails: undefined;
+  AppointmentCreate: undefined;
 };
 
-type homeScreenProp = StackNavigationProp<RootStackParamList, "AppointmentDetails">;
+type homeScreenProp = StackNavigationProp<RootStackParamList>;
 
 export function Home() {
   const [category, setCategory] = useState<string>("");
@@ -61,11 +62,15 @@ export function Home() {
     navigation.navigate('AppointmentDetails');
   }
 
+  const handleAppointmentCreate = () => {
+    navigation.navigate('AppointmentCreate');
+  }
+
   return (
     <Background>
       <View style={styles.header}>
         <Profile />
-        <ButtonAdd />
+        <ButtonAdd onPress={handleAppointmentCreate}/>
       </View>
 
       <CategorySelect

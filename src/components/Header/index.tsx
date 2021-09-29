@@ -10,7 +10,7 @@ import { styles } from "./styles";
 
 type Props = {
   title: string;
-  action: ReactNode;
+  action?: ReactNode;
 };
 
 export function Header({ title, action }: Props) {
