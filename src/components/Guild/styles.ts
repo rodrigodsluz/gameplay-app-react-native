@@ -4,29 +4,24 @@ import { theme } from "../../global/styles/theme";
 export const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 56,
-    backgroundColor: theme.colors.primary,
-    borderRadius: 8,
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 24,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
   },
   title: {
-    flex: 1,
+    fontFamily: theme.fonts.title700,
     color: theme.colors.heading,
-    fontSize: 15,
-    fontFamily: theme.fonts.text500,
-    textAlign: "center",
+    fontSize: 18,
+    marginBottom: 11,
   },
-  iconWrapper: {
-    width: 56,
-    height: 56,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRightWidth: 1,
-    borderColor: theme.colors.line,
-  },
-  icon: {
-    width: 24,
-    height: 18,
+  type: {
+    fontFamily: theme.fonts.text400,
+    color: theme.colors.highlight,
+    fontSize: 13,
+    marginBottom: 24,
   },
 });
