@@ -51,26 +51,26 @@ export function Home() {
       date: "06/22 at 8:40 PM",
       description:
         "It's today that we will reach the challenger without losing a md10 match",
-    },
+    }
   ];
 
   const handleSelectedCategory = (categoryId: string) => {
     categoryId === category ? setCategory("") : setCategory(categoryId);
   };
 
-  const handleAppointmentsDetails = ( ) => {
-    navigation.navigate('AppointmentDetails');
-  }
+  const handleAppointmentsDetails = () => {
+    navigation.navigate("AppointmentDetails");
+  };
 
   const handleAppointmentCreate = () => {
-    navigation.navigate('AppointmentCreate');
-  }
+    navigation.navigate("AppointmentCreate");
+  };
 
   return (
     <Background>
       <View style={styles.header}>
         <Profile />
-        <ButtonAdd onPress={handleAppointmentCreate}/>
+        <ButtonAdd onPress={handleAppointmentCreate} />
       </View>
 
       <CategorySelect
@@ -78,20 +78,19 @@ export function Home() {
         setCategory={handleSelectedCategory}
       />
 
-      <View style={styles.content}>
-        <ListHeader title="Scheduled matches" subtitle="Total 6" />
+      <ListHeader title="Scheduled matches" subtitle="Total 6" />
 
-        <FlatList
-          data={appointments}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <Appointment data={item} onPress={handleAppointmentsDetails} />
-          )}
-          ItemSeparatorComponent={() => <ListDivider />}
-          showsVerticalScrollIndicator={false}
-          style={styles.matches}
-        />
-      </View>
+      <FlatList
+        data={appointments}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Appointment data={item} onPress={handleAppointmentsDetails} />
+        )}
+        ItemSeparatorComponent={() => <ListDivider />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 69}}
+        style={styles.matches}
+      />
     </Background>
   );
 }
