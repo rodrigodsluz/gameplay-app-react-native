@@ -8,25 +8,25 @@ import { GuildProps } from "../Appointment";
 
 type Props = {
   handleGuildSelect: (guild: GuildProps) => void;
-}
+};
 
-export function Guilds({ handleGuildSelect }: Props){
+export function Guilds({ handleGuildSelect }: Props) {
   const guilds = [
     {
       id: "1",
       name: "Legendary",
-      icon: null,
+      icon: 'image.png',
       owner: true,
     },
   ];
 
   return (
     <View style={styles.container}>
-      <FlatList 
+      <FlatList
         data={guilds}
-        keyExtractor={item => item.id}
-        renderItem={({ item}) => (
-          <Guild data={item}/>
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Guild data={item} onPress={() => handleGuildSelect(item)} />
         )}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <ListDivider />}

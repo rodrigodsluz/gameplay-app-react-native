@@ -27,15 +27,15 @@ export function AppointmentCreate() {
   const [openGuildsModal, setOpenGuildsModal] = useState(false);
   const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
 
-  function handleOpenGuilds(){
+  function handleOpenGuilds() {
     setOpenGuildsModal(true);
   }
 
-  function handleCloseGuilds(){
+  function handleCloseGuilds() {
     setOpenGuildsModal(false);
   }
 
-  function handleGuildSelect(guildSelect: GuildProps){
+  function handleGuildSelect(guildSelect: GuildProps) {
     setGuild(guildSelect);
     setOpenGuildsModal(false);
   }
@@ -66,11 +66,12 @@ export function AppointmentCreate() {
         <View style={styles.form}>
           <RectButton onPress={handleOpenGuilds}>
             <View style={styles.select}>
-              {/* <View style={styles.image} /> */}
-              <GuildIcon />
+              {guild.icon ? <GuildIcon /> : <View style={styles.image} />}
 
               <View style={styles.selectBody}>
-                <Text style={styles.label}>Select a server</Text>
+                <Text style={styles.label}>
+                  {guild.name ? guild.name : "Select a server"}Ï
+                </Text>
               </View>
               <Feather
                 name="chevron-right"
@@ -122,7 +123,7 @@ export function AppointmentCreate() {
       </ScrollView>
 
       <ModalView visible={openGuildsModal}>
-          <Guilds handleGuildSelect={handleGuildSelect}/>
+        <Guilds handleGuildSelect={handleGuildSelect} />
       </ModalView>
     </KeyboardAvoidingView>
   );
