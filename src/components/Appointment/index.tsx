@@ -9,13 +9,7 @@ import CalendarSvg from "../../assets/calendar.svg";
 
 import { categories } from "../../utils/categories";
 import { theme } from "../../global/styles/theme";
-
-export type GuildProps = {
-  id: string;
-  name: string;
-  icon: string;
-  owner: boolean;
-};
+import { GuildProps } from "../Guild";
 
 export type AppointmentProps = {
   id: string;
