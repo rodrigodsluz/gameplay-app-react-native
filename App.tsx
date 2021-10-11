@@ -9,7 +9,8 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/inter";
 
 import { Routes } from "./src/routes";
-import { Background } from './src/components/Background'
+import { Background } from "./src/components/Background";
+import { AuthProvider } from "./src/hooks/auth";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -31,7 +32,9 @@ export default function App() {
         translucent
       />
 
-      <Routes/>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </Background>
   );
 }

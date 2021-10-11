@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { styles } from "./styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Background } from "../../components/Background";
+import { useAuth } from "../../hooks/auth";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -15,6 +16,8 @@ type homeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
 export function SignIn() {
   const navigation = useNavigation<homeScreenProp>();
+
+  const { user } = useAuth();
 
   const handleSignIn = () => {
     navigation.navigate("Home");
