@@ -1,8 +1,7 @@
 import React from "react";
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Alert } from "react-native";
 import { ButtonIcon } from "../../components/ButtonIcon";
 import IllustrationImg from "../../assets/illustration.png";
-import { useNavigation } from "@react-navigation/native";
 import { styles } from "./styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Background } from "../../components/Background";
@@ -15,12 +14,15 @@ export type RootStackParamList = {
 type homeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
 export function SignIn() {
-  const navigation = useNavigation<homeScreenProp>();
 
-  const { user } = useAuth();
+  const { user, signIn } = useAuth();
 
-  const handleSignIn = () => {
-    navigation.navigate("Home");
+  const handleSignIn = async () => {
+    try {
+      await signIn();
+    } catch (error) {
+      Alert.alert(error);
+    }
   };
 
   return (
