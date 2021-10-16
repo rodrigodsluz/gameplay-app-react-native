@@ -1,11 +1,12 @@
 import React from "react";
-import { Text, View, Image, Alert } from "react-native";
+import { Text, View, Image, Alert, ActivityIndicator } from "react-native";
 import { ButtonIcon } from "../../components/ButtonIcon";
 import IllustrationImg from "../../assets/illustration.png";
 import { styles } from "./styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Background } from "../../components/Background";
 import { useAuth } from "../../hooks/auth";
+import { theme } from "../../global/styles/theme";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -14,8 +15,7 @@ export type RootStackParamList = {
 type homeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
 
 export function SignIn() {
-
-  const { user, signIn } = useAuth();
+  const { loading, signIn } = useAuth();
 
   const handleSignIn = async () => {
     try {
@@ -44,7 +44,11 @@ export function SignIn() {
             favorite games with your friends
           </Text>
 
-          <ButtonIcon title="Sign in with Discord" onPress={handleSignIn} />
+          {loading ? (
+            <ActivityIndicator color={theme.colors.primary} />
+          ) : (
+            <ButtonIcon title="Sign in with Discord" onPress={handleSignIn} />
+          )}
         </View>
       </View>
     </Background>
