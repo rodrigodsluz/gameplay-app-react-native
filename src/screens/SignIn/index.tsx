@@ -20,7 +20,7 @@ export function SignIn() {
   const handleSignIn = async () => {
     try {
       await signIn();
-    } catch (error) {
+    } catch (error: any) {
       Alert.alert(error);
     }
   };
