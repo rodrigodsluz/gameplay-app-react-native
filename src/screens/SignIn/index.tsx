@@ -8,12 +8,6 @@ import { Background } from "../../components/Background";
 import { useAuth } from "../../hooks/auth";
 import { theme } from "../../global/styles/theme";
 
-export type RootStackParamList = {
-  Home: undefined;
-};
-
-type homeScreenProp = StackNavigationProp<RootStackParamList, "Home">;
-
 export function SignIn() {
   const { loading, signIn } = useAuth();
 
