@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { View, FlatList } from "react-native";
 
 import { ButtonAdd } from "../../components/ButtonAdd";
 import { CategorySelect } from "../../components/CategorySelect";
 import { ListHeader } from "../../components/ListHeader";
 import { Profile } from "../../components/Profile";
-import { Appointment } from "../../components/Appointment";
+import { Appointment, AppointmentProps } from "../../components/Appointment";
 import { ListDivider } from "../../components/ListDivider";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, useFocusEffect } from "@react-navigation/core";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { styles } from "./styles";
 import { Background } from "../../components/Background";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { COLLECTION_APPOINTMENTS } from "../../configs/database";
+import { Load } from "../../components/Load";
 
 export type RootStackParamList = {
   AppointmentDetails: undefined;
@@ -22,37 +25,10 @@ type homeScreenProp = StackNavigationProp<RootStackParamList>;
 
 export function Home() {
   const [category, setCategory] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [appointments, setAppointments] = useState<AppointmentProps[]>([]);
 
   const navigation = useNavigation<homeScreenProp>();
-
-  const appointments = [
-    {
-      id: "1",
-      guild: {
-        id: "1",
-        name: "Legendary",
-        icon: null,
-        owner: true,
-      },
-      category: "1",
-      date: "06/22 at 8:40 PM",
-      description:
-        "It's today that we will reach the challenger without losing a md10 match",
-    },
-    {
-      id: "2",
-      guild: {
-        id: "1",
-        name: "Legendary",
-        icon: null,
-        owner: true,
-      },
-      category: "1",
-      date: "06/22 at 8:40 PM",
-      description:
-        "It's today that we will reach the challenger without losing a md10 match",
-    }
-  ];
 
   const handleSelectedCategory = (categoryId: string) => {
     categoryId === category ? setCategory("") : setCategory(categoryId);
@@ -66,6 +42,25 @@ export function Home() {
     navigation.navigate("AppointmentCreate");
   };
 
+  async function loadAppointments() {
+    const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+    const storage: AppointmentProps[] = response ? JSON.parse(response) : [];
+
+    if (category) {
+      setAppointments(storage.filter((item) => item.category === category));
+    } else {
+      setAppointments(storage);
+    }
+
+    setLoading(false);
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadAppointments();
+    }, [category])
+  );
+
   return (
     <Background>
       <View style={styles.header}>
@@ -78,19 +73,31 @@ export function Home() {
         setCategory={handleSelectedCategory}
       />
 
-      <ListHeader title="Scheduled matches" subtitle="Total 6" />
+      {loading ? (
+        <Load />
+      ) : (
+        <>
+          <ListHeader
+            title="Partidas agendadas"
+            subtitle={`Total ${appointments.length}`}
+          />
 
-      <FlatList
-        data={appointments}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Appointment data={item} onPress={handleAppointmentsDetails} />
-        )}
-        ItemSeparatorComponent={() => <ListDivider />}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 69}}
-        style={styles.matches}
-      />
+          <FlatList
+            data={appointments}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Appointment
+                data={item}
+                onPress={() => handleAppointmentDetails(item)}
+              />
+            )}
+            ItemSeparatorComponent={() => <ListDivider />}
+            contentContainerStyle={{ paddingBottom: 69 }}
+            style={styles.matches}
+            showsVerticalScrollIndicator={false}
+          />
+        </>
+      )}
     </Background>
   );
 }
