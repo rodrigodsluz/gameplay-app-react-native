@@ -19,8 +19,8 @@ import { TextArea } from "../../components/TextArea";
 import { styles } from "./styles";
 import { theme } from "../../global/styles/theme";
 import { ModalView } from "../../components/ModalView";
-import { Guilds } from "../../components/Guilds";
-import { GuildProps } from "../../components/Appointment";
+import { Guilds } from "../Guilds";
+import { GuildProps } from "../../components/Guild";
 
 export function AppointmentCreate() {
   const [category, setCategory] = useState<string>("");
