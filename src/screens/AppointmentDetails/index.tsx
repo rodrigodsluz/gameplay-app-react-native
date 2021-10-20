@@ -1,6 +1,8 @@
 import React from "react";
 import { ImageBackground, Text, View, FlatList } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
+import { useRoute } from "@react-navigation/core";
+
 import { Fontisto } from "@expo/vector-icons";
 import { Background } from "../../components/Background";
 import { Header } from "../../components/Header";
@@ -12,6 +14,11 @@ import { styles } from "./styles";
 import { theme } from "../../global/styles/theme";
 import { ListDivider } from "../../components/ListDivider";
 import { ButtonIcon } from "../../components/ButtonIcon";
+import { AppointmentProps } from '../../components/Appointment';
+
+type Params = {
+  guildSelected: AppointmentProps;
+};
 
 export function AppointmentDetails() {
   const members = [
@@ -28,6 +35,10 @@ export function AppointmentDetails() {
       status: "offline",
     },
   ];
+
+  const route = useRoute();
+  const { guildSelected } = route.params as Params;
+
   return (
     <Background>
       <Header
@@ -41,11 +52,10 @@ export function AppointmentDetails() {
 
       <ImageBackground source={BannerImg} style={styles.banner}>
         <View style={styles.bannerContent}>
-          <Text style={styles.title}>Legendary</Text>
+          <Text style={styles.title}> { guildSelected.guild.name }</Text>
 
           <Text style={styles.subtitle}>
-            It's today that we'll reach the challenger without losing a md10
-            match
+          { guildSelected.description }
           </Text>
         </View>
       </ImageBackground>
@@ -56,7 +66,7 @@ export function AppointmentDetails() {
         data={members}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <Member data={item} />}
-        ItemSeparatorComponent={() => <ListDivider isCentered/>}
+        ItemSeparatorComponent={() => <ListDivider isCentered />}
         style={styles.members}
       />
 

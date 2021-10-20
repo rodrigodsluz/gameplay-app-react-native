@@ -17,7 +17,7 @@ import { COLLECTION_APPOINTMENTS } from "../../configs/database";
 import { Load } from "../../components/Load";
 
 export type RootStackParamList = {
-  AppointmentDetails: undefined;
+  AppointmentDetails: { guildSelected: AppointmentProps };
   AppointmentCreate: undefined;
 };
 
@@ -34,9 +34,9 @@ export function Home() {
     categoryId === category ? setCategory("") : setCategory(categoryId);
   };
 
-  const handleAppointmentsDetails = () => {
-    navigation.navigate("AppointmentDetails");
-  };
+  function handleAppointmentDetails(guildSelected: AppointmentProps) {
+    navigation.navigate("AppointmentDetails", { guildSelected });
+  }
 
   const handleAppointmentCreate = () => {
     navigation.navigate("AppointmentCreate");
