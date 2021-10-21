@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 import * as AuthSession from "expo-auth-session";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -24,6 +30,7 @@ type AuthContextData = {
   user: User;
   loading: boolean;
   signIn: () => Promise<void>;
+  singOut: () => Promise<void>;
 };
 
 type AuthProviderProps = {
@@ -77,10 +84,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  async function singOut() {
+    setUser({} as User);
+    await AsyncStorage.removeItem(COLLECTION_USERS);
+  }
+
   async function loadUserStorageData() {
     const storage = await AsyncStorage.getItem(COLLECTION_USERS);
 
-    if(storage){
+    if (storage) {
       const userLogged = JSON.parse(storage) as User;
       api.defaults.headers.authorization = `Bearer ${userLogged.token}`;
 
@@ -90,10 +102,10 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     loadUserStorageData();
-  },[]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn }}>
+    <AuthContext.Provider value={{ user, loading, signIn, singOut }}>
       {children}
     </AuthContext.Provider>
   );
